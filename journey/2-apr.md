@@ -12,12 +12,12 @@
 ## Playing with dataset
 - Dataset is Sri-Ram-A/pnp1 from hugging face
 - Running in Interactive terminal of VSCode : ~/RoboticArm/tests/2_dataset.py
-- ![Lerobot Visualizer 6 Actions](actions.png)
+- ![Lerobot Visualizer 6 Actions](images/actions.png)
 - Below conclusions and outputs are in : ~/RoboticArm/tests/2_dataset.py
   - Actions in dataset are in radians 
   - Both The Camera Images are normalised 
   - Look at 
-![Action Stats](action-stats.png)
+![Action Stats](images/action-stats.png)
 - The model outputs Normalised actions , which must be denormalised and then converted to degrees 
 - Camera footage is internally normalised
   

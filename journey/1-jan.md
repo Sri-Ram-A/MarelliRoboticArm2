@@ -143,7 +143,7 @@ Using dataset - https://huggingface.co/datasets/Sri-Ram-A/pnp1
 - Go to `lerobot/visualize_dataset` and check **Action Insights** tab
 - Look into https://huggingface.co/docs/lerobot/act for other parameters
 
-![action-insights](action-insights.png)
+![action-insights](images/action-insights.png)
 
 - https://colab.research.google.com/github/huggingface/notebooks/blob/main/lerobot/training-act.ipynb
 - **HF TOKEN** `lerobot-ubuntu` with WRITE permission: `hf_frV...`
@@ -239,7 +239,7 @@ python -m lerobot.scripts.convert_dataset_v21_to_v30 \
 ```bash
 pip install kaggle
 # Authenticate - https://github.com/Kaggle/kaggle-cli/blob/main/docs/README.md#authentication
-export KAGGLE_API_TOKEN=KGAT_eeba8ce021201f386d9ce36262efe259 # Copied from the settings UI (https://www.kaggle.com/settings)
+export KAGGLE_API_TOKEN=KGAT_ee... # Copied from the settings UI (https://www.kaggle.com/settings)
 kaggle kernels output sriram1k/act-pnp1 -p ~/Documents/sr_proj/RoboticArm/models
 ```
 
