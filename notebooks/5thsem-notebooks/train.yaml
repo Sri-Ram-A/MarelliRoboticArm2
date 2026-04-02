@@ -1,0 +1,9 @@
+policy:
+  type: act
+  repo_id: Sri-Ram-A/act-silver-metal-policy
+  push_to_hub: true
+  max_steps: 200
+  batch_size: 8
+
+dataset:
+  repo_id: Sri-Ram-A/dataset-silver-metal-1

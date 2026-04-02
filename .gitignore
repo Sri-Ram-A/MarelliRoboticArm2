@@ -1,2 +1,19 @@
 models/
 ~
+.env
+# model weights
+*.pt
+*.pth
+*.ckpt
+
+# caches
+__pycache__/
+*.pyc
+
+# logs
+logs/
+wandb/
+
+# large assets
+*.mp4
+*.bag
