@@ -31,16 +31,16 @@ class SO100KeyboardTeleop(KeyboardTeleop):
         "wrist_roll.pos",
         "gripper.pos",
     ]
-    STEP = 5.0  # degrees per keypress
+    STEP = 2.0  # degrees per keypress
     
     # Key → (joint_index, direction)
     KEY_MAP = {
-        "a": (0, +1), "d": (0, -1),   # shoulder_pan
-        "w": (1, +1), "s": (1, -1),   # shoulder_lift
-        "r": (2, +1), "f": (2, -1),   # elbow_flex
-        "t": (3, +1), "g": (3, -1),   # wrist_flex
-        "y": (4, +1), "h": (4, -1),   # wrist_roll
-        "o": (5, +1), "l": (5, -1),   # gripper
+        "q": (0, -1), "a": (0, +1),   # shoulder_pan
+        "w": (1, -1), "s": (1, +1),   # shoulder_lift
+        "e": (2, -1), "d": (2, +1),   # elbow_flex
+        "r": (3, -1), "f": (3, +1),   # wrist_flex
+        "t": (4, -1), "g": (4, +1),   # wrist_roll
+        "y": (5, -1), "h": (5, +1),   # gripper
     }
 
     def __init__(self, config: KeyboardTeleopConfig):

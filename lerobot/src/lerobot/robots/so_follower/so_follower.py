@@ -17,7 +17,6 @@
 import logging
 import time
 from functools import cached_property
-
 from lerobot.cameras.utils import make_cameras_from_configs
 from lerobot.motors import Motor, MotorCalibration, MotorNormMode
 from lerobot.motors.feetech import (
@@ -206,7 +205,6 @@ class SOFollower(Robot):
         Returns:
             RobotAction: the action sent to the motors, potentially clipped.
         """
-
         goal_pos = {key.removesuffix(".pos"): val for key, val in action.items() if key.endswith(".pos")}
 
         # Cap goal position when too far away from present position.

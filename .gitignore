@@ -1,4 +1,5 @@
 models/
+XLeRobot/mobileclip_blt.ts
 ~
 .env
 # model weights
@@ -183,3 +184,4 @@ outputs/
 *.urdf
 *.xml
 *.part
+XLeRobot/mobileclip_blt.ts

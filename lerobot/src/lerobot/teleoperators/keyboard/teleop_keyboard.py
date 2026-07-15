@@ -56,6 +56,33 @@ class KeyboardTeleop(Teleoperator):
     config_class = KeyboardTeleopConfig
     name = "keyboard"
 
+    ###
+    JOINT_NAMES = [
+        "shoulder_pan.pos",
+        "shoulder_lift.pos",
+        "elbow_flex.pos",
+        "wrist_flex.pos",
+        "wrist_roll.pos",
+        "gripper.pos",
+    ]
+
+    KEY_MAP = {
+        "q": (0, -1),
+        "a": (0, +1),  # shoulder_pan
+        "w": (1, -1),
+        "s": (1, +1),  # shoulder_lift
+        "e": (2, -1),
+        "d": (2, +1),  # elbow_flex
+        "r": (3, -1),
+        "f": (3, +1),  # wrist_flex
+        "t": (4, -1),
+        "g": (4, +1),  # wrist_roll
+        "y": (5, -1),
+        "h": (5, +1),  # gripper
+    }
+
+    ###
+
     def __init__(self, config: KeyboardTeleopConfig):
         super().__init__(config)
         self.config = config
@@ -65,6 +92,8 @@ class KeyboardTeleop(Teleoperator):
         self.current_pressed = {}
         self.listener = None
         self.logs = {}
+        self._positions = [0.0, 0.0, 0.0, 0.0, 0.0, 50.0]  ### gripper half-open
+        self._step = getattr(config, "step_deg", 5.0)  ###
 
     @property
     def action_features(self) -> dict:
@@ -121,17 +150,38 @@ class KeyboardTeleop(Teleoperator):
     def configure(self):
         pass
 
-    @check_if_not_connected
-    def get_action(self) -> RobotAction:
-        before_read_t = time.perf_counter()
+    ###
+    # @check_if_not_connected
+    # def get_action(self) -> RobotAction:
+    #     before_read_t = time.perf_counter()
+    #     self._drain_pressed_keys()
 
+    #     # Generate action based on current key states
+    #     action = {key for key, val in self.current_pressed.items() if val}
+    #     self.logs["read_pos_dt_s"] = time.perf_counter() - before_read_t
+
+    #     return dict.fromkeys(action, None)
+    ###
+
+    ### This Works Perfectly
+    @check_if_not_connected
+    def get_action(self) -> RobotAction:  # <-- REPLACE THIS METHOD
+        before_read_t = time.perf_counter()
         self._drain_pressed_keys()
 
-        # Generate action based on current key states
-        action = {key for key, val in self.current_pressed.items() if val}
-        self.logs["read_pos_dt_s"] = time.perf_counter() - before_read_t
+        active_keys = {k for k, v in self.current_pressed.items() if v}
+        for key in active_keys:
+            if key in self.KEY_MAP:
+                joint_idx, direction = self.KEY_MAP[key]
+                self._positions[joint_idx] += direction * self._step
 
-        return dict.fromkeys(action, None)
+        # Clip gripper
+        self._positions[5] = max(0.0, min(100.0, self._positions[5]))
+
+        self.logs["read_pos_dt_s"] = time.perf_counter() - before_read_t
+        return {name: self._positions[i] for i, name in enumerate(self.JOINT_NAMES)}
+
+    ###
 
     def send_feedback(self, feedback: dict[str, Any]) -> None:
         pass

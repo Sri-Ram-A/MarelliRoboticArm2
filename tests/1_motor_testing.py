@@ -57,7 +57,7 @@ def test_encoder():
             "gripper.pos": 2794,
         }
         result = robot.send_action(action)
-        logger.info(f"send_action(encoder) -> ")
+        logger.info("send_action(encoder) -> ")
         pprint(result)
         wait_for_q()
     finally:
@@ -71,7 +71,7 @@ def test_degrees():
         logger.success("connect() -> success")
         log_position(robot)
         action = {
-            "shoulder_pan.pos": -90.0,      # facing forward - base
+            "shoulder_pan.pos": 0.0,      # facing forward - base
             "shoulder_lift.pos": 0.0,    # raise arm up - above base 
             "elbow_flex.pos":0.0,       # bend elbow to form L
             "wrist_flex.pos": 0.0,        # keep neutral
@@ -79,7 +79,7 @@ def test_degrees():
             "gripper.pos": 0.0,           # open/neutral
         }
         result = robot.send_action(action)
-        logger.info(f"send_action(degrees) -> {result}")
+        logger.info("send_action(degrees) -> {result}")
         wait_for_q()
     finally:
         robot.disconnect()

@@ -24,7 +24,7 @@ from ..config import TeleoperatorConfig
 @dataclass
 class KeyboardTeleopConfig(TeleoperatorConfig):
     """KeyboardTeleopConfig"""
-
+    step_deg: float = 5.0 ###
     # TODO(Steven): Consider setting in here the keys that we want to capture/listen
 
 

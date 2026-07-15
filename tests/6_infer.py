@@ -11,11 +11,11 @@ from lerobot.robots.so_follower import SO100Follower, SO100FollowerConfig
 from lerobot.cameras.opencv.configuration_opencv import OpenCVCameraConfig
 from lerobot.cameras.opencv.configuration_opencv import Cv2Backends
 from lerobot.datasets.lerobot_dataset import LeRobotDataset
-
+from pathlib import Path
 # Config
 ROBOT_PORT = "/dev/ttyACM1"
-MAIN_CAMERA_PATH = "/dev/video4"
-SECONDARY_CAMERA_PATH = "/dev/video2"
+MAIN_CAMERA_PATH = Path("/dev/video4")
+SECONDARY_CAMERA_PATH = Path("/dev/video2")
 DATASET_ID = "Sri-Ram-A/pnp1"
 MODEL_ID = "Sri-Ram-A/act_pnp1"
 

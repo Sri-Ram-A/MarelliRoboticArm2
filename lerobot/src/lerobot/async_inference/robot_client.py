@@ -227,7 +227,9 @@ class RobotClient:
         aggregate_fn: Callable[[torch.Tensor, torch.Tensor], torch.Tensor] | None = None,
     ):
         """Finds the same timestep actions in the queue and aggregates them using the aggregate_fn"""
-        self.logger.info(f"[AGGREGATE] incoming {len(incoming_actions)} actions | latest_action={self.latest_action} | first_ts={incoming_actions[0].get_timestep() if incoming_actions else 'none'} | queue_size_before={self.action_queue.qsize()}") ###
+        self.logger.info(
+            f"[AGGREGATE] incoming {len(incoming_actions)} actions | latest_action={self.latest_action} | first_ts={incoming_actions[0].get_timestep() if incoming_actions else 'none'} | queue_size_before={self.action_queue.qsize()}"
+        )  ###
         if aggregate_fn is None:
             # default aggregate function: take the latest action
             def aggregate_fn(x1, x2):
@@ -398,7 +400,9 @@ class RobotClient:
             self.logger.debug(
                 f"Popping action from queue to perform took {get_end:.6f}s | Queue size: {current_queue_size}"
             )
-        self.logger.info(f"[ACTION] ts={timed_action.get_timestep()} | raw_tensor={timed_action.get_action().tolist()[:3]}... | dict={list(_performed_action.items())[:3]}...")
+        self.logger.info(
+            f"[ACTION] ts={timed_action.get_timestep()} | raw_tensor={timed_action.get_action().tolist()[:3]}... | dict={list(_performed_action.items())[:3]}..."
+        )
         return _performed_action
 
     def _ready_to_send_observation(self):
@@ -468,15 +472,15 @@ class RobotClient:
         while self.running:
             control_loop_start = time.perf_counter()
             """Control loop: (1) Performing actions, when available"""
-            
+
             if self.actions_available():
                 _performed_action = self.control_loop_action(verbose)
 
             """Control loop: (2) Streaming observations to the remote policy server"""
             if self._ready_to_send_observation():
                 _captured_observation = self.control_loop_observation(task, verbose)
-            
-            self.logger.info(f"[LOOP] actions_available={_performed_action} | ready_to_send_obs={_captured_observation} | queue_size={self.action_queue.qsize()} | latest_action={self.latest_action}")
+
+            ### self.logger.info(f"[LOOP] actions_available={_performed_action} | ready_to_send_obs={_captured_observation} | queue_size={self.action_queue.qsize()} | latest_action={self.latest_action}")
             self.logger.debug(f"Control loop (ms): {(time.perf_counter() - control_loop_start) * 1000:.2f}")
             # Dynamically adjust sleep time to maintain the desired control frequency
             time.sleep(max(0, self.config.environment_dt - (time.perf_counter() - control_loop_start)))

@@ -6,13 +6,13 @@ This will tell you exactly what motors are connected
 """
 
 import logging
-import sys
 import time
+from typing import Literal
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-def identify_motors():
+def identify_motors()    -> Literal['DYNAMIXEL'] | Literal['FEETECH'] | Literal['UNKNOWN']:
     """Identify motors by directly communicating with them"""
     
     logger.info("=" * 70)
@@ -98,7 +98,7 @@ def identify_motors():
         
         # List all serial ports
         ports = list(serial.tools.list_ports.comports())
-        logger.info(f"Available serial ports:")
+        logger.info("Available serial ports:")
         for port in ports:
             logger.info(f"  {port.device}: {port.description}")
             
